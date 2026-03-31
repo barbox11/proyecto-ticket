@@ -2,6 +2,7 @@ import "dotenv/config";
 import express, { Request, Response } from "express";
 import cors from "cors";
 import { prisma } from "./config/prisma";
+import userRoutes from "./routes/user.routes";
 
 const app = express();
 
@@ -12,6 +13,8 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
 app.use(express.json());
+
+app.use("/api/users", userRoutes);
 
 app.get("/", (req: Request, res: Response) => {
 res.send("API funcionando 🚀");
