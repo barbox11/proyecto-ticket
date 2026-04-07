@@ -12,4 +12,15 @@ model User {
   password  String
   name      String
   createdAt DateTime @default(now())
+  tickets   Ticket[]
+}
+
+model Ticket {
+  id        Int      @id @default(autoincrement())
+  title     String
+  description String
+  status    String   @default("open")
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
 }

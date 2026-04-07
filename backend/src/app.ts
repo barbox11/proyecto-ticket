@@ -8,6 +8,10 @@ import cors from "cors";
 import { prisma } from "./config/prisma";
 // Rutas de usuarios
 import userRoutes from "./routes/user.routes";
+// Rutas de tickets
+import ticketRoutes from "./routes/ticket.routes";
+// Middleware de autenticación
+import { authMiddleware } from "./middlewares/auth.middleware";
 
 // Crear instancia de la aplicación Express
 const app = express();
@@ -28,6 +32,8 @@ app.use(express.json());
 
 // Registrar rutas de usuarios bajo /api/users
 app.use("/api/users", userRoutes);
+// Registrar rutas de tickets bajo /api/tickets
+app.use("/api/tickets", ticketRoutes);
 
 // Ruta de prueba para verificar que el servidor está activo
 app.get("/", (req: Request, res: Response) => {
@@ -44,6 +50,14 @@ app.get("/test-db", async (req: Request, res: Response) => {
     // Si hay error, devolver status 500 (error del servidor)
     res.status(500).json({ error: "Error de conexión a BD ❌" });
     }
+});
+
+// Ruta protegida
+app.get("/profile", authMiddleware, (req, res) => {
+    res.json({
+    message: "Ruta protegida 🔒",
+    user: (req as any).user,
+    });
 });
 
 // Iniciar el servidor en puerto 3000

@@ -46,7 +46,7 @@ export const loginUser = async (email: string, password: string) => {
   // Generar token JWT firmado con el ID del usuario y secreto
   // El token expira en 1 hora
   const token = jwt.sign(
-    { userId: user.id },
+    { id: user.id },
     process.env.JWT_SECRET || "secreto",
     { expiresIn: "1h" }
   );
