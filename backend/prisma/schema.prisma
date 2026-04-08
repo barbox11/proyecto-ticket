@@ -16,11 +16,12 @@ model User {
 }
 
 model Ticket {
-  id        Int      @id @default(autoincrement())
-  title     String
+  id          Int      @id @default(autoincrement())
+  title       String
   description String
-  status    String   @default("open")
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
+  status      String   @default("open") // open, in_progress, done
+  priority    String   @default("medium") // low, medium, high
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
 }
