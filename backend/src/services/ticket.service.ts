@@ -16,15 +16,17 @@ import { prisma } from "../config/prisma";
     });
     };
 
-export const getTickets = async () => {
+export const getTickets = async (userId: number) => {
   return await prisma.ticket.findMany({
+    where: {
+      userId: userId,
+    },
     include: {
       user: {
         select: {
           id: true,
           email: true,
           name: true,
-          createdAt: true,
         },
       },
     },

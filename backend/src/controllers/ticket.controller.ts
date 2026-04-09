@@ -16,10 +16,13 @@ export const create = async (req: Request, res: Response) => {
 
 export const list = async (req: Request, res: Response) => {
     try {
-        const tickets = await getTickets();
-        res.json(tickets);
+    const userId = (req as any).user.userId;
+
+    const tickets = await getTickets(userId);
+
+    res.json(tickets);
     } catch (error) {
-        res.status(500).json({ error: "Error obteniendo tickets" });
+    res.status(500).json({ error: "Error al obtener tickets" });
     }
 };
 
