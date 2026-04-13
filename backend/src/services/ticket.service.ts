@@ -16,29 +16,44 @@ import { prisma } from "../config/prisma";
     });
     };
 
-export const getTickets = async (userId: number) => {
-  return await prisma.ticket.findMany({
-    where: {
-      userId: userId,
-    },
-    include: {
-      user: {
-        select: {
-          id: true,
-          email: true,
-          name: true,
-        },
-      },
-    },
-  });
+export const getTickets = async (userId: number, page: number, limit: number) => {
+    const skip = (page - 1) * limit;
+
+    const [tickets, total] = await prisma.$transaction([
+        prisma.ticket.findMany({
+            where: { userId },
+            skip,
+            take: limit,
+            orderBy: { createdAt: "desc" },
+            include: {
+                user: {
+                    select: {
+                        id: true,
+                        email: true,
+                        name: true,
+                    },
+                },
+            },
+        }),
+        prisma.ticket.count({ where: { userId } }),
+    ]);
+
+    return {
+        tickets,
+        total,
+        page,
+        totalPages: Math.ceil(total / limit),
+        hasMore: skip + tickets.length < total,
+    };
 };
 
 export const updateTicketStatus = async (
-  id: number,
-  status: string
+    id: number,
+    userId: number,
+    data: { title?: string; description?: string; priority?: string; status?: string }
 ) => {
-  return await prisma.ticket.update({
-    where: { id },
-    data: { status },
-  });
+    return await prisma.ticket.update({
+        where: { id, userId },
+        data,
+    });
 };

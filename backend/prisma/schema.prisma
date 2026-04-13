@@ -13,15 +13,26 @@ model User {
   name      String
   createdAt DateTime @default(now())
   tickets   Ticket[]
+  refreshTokens RefreshToken[]
 }
 
 model Ticket {
   id          Int      @id @default(autoincrement())
   title       String
   description String
-  status      String   @default("open") // open, in_progress, done
-  priority    String   @default("medium") // low, medium, high
+  status      String   @default("abierto") // abierto, en_progreso, cerrado
+  priority    String   @default("media") // baja, media, alta
   userId      Int
   user        User     @relation(fields: [userId], references: [id])
   createdAt   DateTime @default(now())
+}
+
+model RefreshToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  expiresAt DateTime
+  revoked   Boolean  @default(false)
+  createdAt DateTime @default(now())
 }
