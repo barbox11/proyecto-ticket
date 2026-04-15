@@ -1,7 +1,10 @@
 import axios from "axios";
 
+// URL del backend desde variable de entorno (se define en .env)
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
 export const api = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: API_URL,
 });
 
 // Interceptor de request: adjunta access token a cada petición
