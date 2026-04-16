@@ -20,7 +20,7 @@ const routes = [
  * - Si no hay token y va a /dashboard → redirige a /login
  * - Si hay token y va a /login o /register → redirige a /dashboard
  */
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
     const token = localStorage.getItem("token");
 
     // Rutas públicas (no requieren auth)

@@ -201,9 +201,9 @@ const goRegister = () => {
 </script>
 
 <style scoped>
-/* ============================================
-   Página de Login - Layout
-   ============================================ */
+/* 
+    Página de Login - Layout
+    */
 
 .login-page {
   min-height: 100vh;
@@ -222,9 +222,9 @@ const goRegister = () => {
   animation: pageEnter 0.5s var(--transition-slow) both;
 }
 
-/* ============================================
-   Efecto Holográfico / Radar
-   ============================================ */
+/* 
+    Efecto Holográfico / Radar
+    */
 
 .hologram {
   position: absolute;
@@ -314,9 +314,9 @@ const goRegister = () => {
   background: linear-gradient(180deg, transparent, rgba(16, 185, 129, 0.25), transparent);
 }
 
-/* ============================================
-   Card de Login
-   ============================================ */
+/* 
+    Card de Login
+    */
 
 .login-card {
   position: relative;
@@ -337,9 +337,9 @@ const goRegister = () => {
   animation: shake 0.5s ease;
 }
 
-/* ============================================
-   Header del Login
-   ============================================ */
+/* 
+    Header del Login
+   */
 
 .login-header {
   text-align: center;
@@ -374,9 +374,9 @@ const goRegister = () => {
   line-height: 1.5;
 }
 
-/* ============================================
-   Mensaje de Error
-   ============================================ */
+/* 
+    Mensaje de Error
+    */
 
 .login-error {
   display: flex;
@@ -392,9 +392,9 @@ const goRegister = () => {
   animation: fadeIn 0.3s ease;
 }
 
-/* ============================================
-   Formulario
-   ============================================ */
+/* 
+    Formulario
+    */
 
 .login-form {
   display: flex;
@@ -493,9 +493,9 @@ const goRegister = () => {
   color: var(--text-secondary);
 }
 
-/* ============================================
-   Checkbox personalizado
-   ============================================ */
+/* 
+    Checkbox personalizado
+    */
 
 .form-checkbox {
   display: flex;
@@ -535,9 +535,9 @@ const goRegister = () => {
   color: white;
 }
 
-/* ============================================
-   Botón Principal
-   ============================================ */
+/* 
+    Botón Principal
+    */
 
 .btn-primary {
   width: 100%;
@@ -602,9 +602,9 @@ const goRegister = () => {
   animation: spin 0.8s linear infinite;
 }
 
-/* ============================================
-   Footer del Login
-   ============================================ */
+/* 
+    Footer del Login
+    */
 
 .login-footer {
   text-align: center;
@@ -626,9 +626,9 @@ const goRegister = () => {
   text-decoration: underline;
 }
 
-/* ============================================
-   Responsive: Móvil
-   ============================================ */
+/* 
+    Responsive: Móvil
+    */
 
 @media (max-width: 640px) {
   .login-page {
