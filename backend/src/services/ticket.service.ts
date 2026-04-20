@@ -57,3 +57,9 @@ export const updateTicketStatus = async (
         data,
     });
 };
+
+export const deleteTicket = async (id: number, userId: number) => {
+    return await prisma.ticket.delete({
+        where: { id, userId },
+    });
+};

@@ -128,9 +128,10 @@
         </button>
       </form>
 
-      <!-- Link a registro -->
+      <!-- Links adicionales -->
       <div class="login-footer">
         <p>¿No tienes cuenta? <a href="#" @click.prevent="goRegister">Crear cuenta</a></p>
+        <p>¿Olvidaste tu contraseña? <a href="#" @click.prevent="goForgotPassword">Recuperarla</a></p>
       </div>
     </div>
   </div>
@@ -197,6 +198,10 @@ const handleLogin = async () => {
 
 const goRegister = () => {
   router.push("/register");
+};
+
+const goForgotPassword = () => {
+  router.push("/forgot-password");
 };
 </script>
 
@@ -613,6 +618,13 @@ const goRegister = () => {
   border-top: 1px solid var(--neutral-border);
   font-size: 14px;
   color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.login-footer p {
+  margin: 0;
 }
 
 .login-footer a {

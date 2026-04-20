@@ -3,10 +3,14 @@ import { createRouter, createWebHistory } from "vue-router";
 import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import DashboardView from "../views/DashboardView.vue";
+import ForgotPasswordView from "../views/ForgotPasswordView.vue";
+import ResetPasswordView from "../views/ResetPasswordView.vue";
 
 const routes = [
     { path: "/", component: LoginView },
     { path: "/register", component: RegisterView },
+    { path: "/forgot-password", component: ForgotPasswordView },
+    { path: "/reset-password", component: ResetPasswordView },
     { path: "/dashboard", component: DashboardView },
     ];
 
@@ -24,7 +28,7 @@ router.beforeEach((to, _from, next) => {
     const token = localStorage.getItem("token");
 
     // Rutas públicas (no requieren auth)
-    const publicRoutes = ["/", "/register"];
+    const publicRoutes = ["/", "/register", "/forgot-password", "/reset-password"];
     const isPublic = publicRoutes.includes(to.path);
 
     if (!isPublic && !token) {

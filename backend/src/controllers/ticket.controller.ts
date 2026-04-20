@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createTicket, getTickets, updateTicketStatus } from "../services/ticket.service"; // 👈 agrega el import
+import { createTicket, getTickets, updateTicketStatus, deleteTicket } from "../services/ticket.service";
 
 export const create = async (req: Request, res: Response) => {
     try {
@@ -61,5 +61,21 @@ export const updateStatus = async (req: Request, res: Response) => {
         res.json(ticket);
     } catch (error) {
         res.status(500).json({ error: "Error actualizando ticket" });
+    }
+};
+
+export const remove = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const userId = Number((req as any).user.id);
+
+        await deleteTicket(Number(id), userId);
+
+        res.json({ message: "Ticket eliminado exitosamente" });
+    } catch (error: any) {
+        if (error.code === "P2025") {
+            return res.status(404).json({ error: "Ticket no encontrado" });
+        }
+        res.status(500).json({ error: "Error eliminando ticket" });
     }
 };

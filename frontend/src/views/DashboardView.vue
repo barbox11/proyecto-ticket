@@ -120,19 +120,60 @@
               </svg>
               Nuevo
             </button>
-            <button class="filter-btn">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
-                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
-              </svg>
-              Filtrar
-            </button>
-            <button class="filter-btn">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
-                <line x1="12" y1="5" x2="12" y2="19"/>
-                <polyline points="19 12 12 19 5 12"/>
-              </svg>
-              Ordenar
-            </button>
+            <div class="menu-container">
+              <button class="filter-btn" @click.stop="showFilterMenu = !showFilterMenu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                  <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+                </svg>
+                Filtrar
+                <svg v-if="filterPriority" class="filter-badge" viewBox="0 0 4 4" fill="currentColor">
+                  <circle cx="2" cy="2" r="2"/>
+                </svg>
+              </button>
+              <div v-if="showFilterMenu" class="filter-menu">
+                <button @click="filterPriority = null; showFilterMenu = false" class="menu-item" :class="{ active: !filterPriority }">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  Todos
+                </button>
+                <button @click="filterPriority = 'alta'; showFilterMenu = false" class="menu-item" :class="{ active: filterPriority === 'alta' }">
+                  <span class="priority-dot dot-alta"></span>
+                  Prioridad Alta
+                </button>
+                <button @click="filterPriority = 'media'; showFilterMenu = false" class="menu-item" :class="{ active: filterPriority === 'media' }">
+                  <span class="priority-dot dot-media"></span>
+                  Prioridad Media
+                </button>
+                <button @click="filterPriority = 'baja'; showFilterMenu = false" class="menu-item" :class="{ active: filterPriority === 'baja' }">
+                  <span class="priority-dot dot-baja"></span>
+                  Prioridad Baja
+                </button>
+              </div>
+            </div>
+            <div class="menu-container">
+              <button class="filter-btn" @click.stop="showSortMenu = !showSortMenu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <polyline points="19 12 12 19 5 12"/>
+                </svg>
+                Ordenar
+              </button>
+              <div v-if="showSortMenu" class="sort-menu">
+                <button @click="sortBy = 'recent'; showSortMenu = false" class="menu-item" :class="{ active: sortBy === 'recent' }">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  Mas Reciente
+                </button>
+                <button @click="sortBy = 'priority'; showSortMenu = false" class="menu-item" :class="{ active: sortBy === 'priority' }">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  Mayor Prioridad
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -188,20 +229,35 @@
               <span class="age-text">{{ formatTime(t.createdAt) }}</span>
             </span>
             <span class="col-actions">
-              <button 
-                class="btn-edit-ticket" 
-                @click="toggleEdit(t)" 
-                :title="editingTicket === t.id ? 'Cerrar' : 'Editar'"
-              >
-                <svg v-if="editingTicket !== t.id" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                </svg>
-                <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-                  <line x1="18" y1="6" x2="6" y2="18"/>
-                  <line x1="6" y1="6" x2="18" y2="18"/>
-                </svg>
-              </button>
+              <div class="action-buttons">
+                <button 
+                  class="btn-edit-ticket" 
+                  @click="toggleEdit(t)" 
+                  :title="editingTicket === t.id ? 'Cerrar' : 'Editar'"
+                >
+                  <svg v-if="editingTicket !== t.id" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                  </svg>
+                  <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                  </svg>
+                </button>
+                <button 
+                  class="btn-delete-ticket" 
+                  @click="deleteTicket(t.id)" 
+                  :disabled="ticketStore.isLoading"
+                  title="Eliminar"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                    <polyline points="3 6 5 6 21 6"/>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                    <line x1="10" y1="11" x2="10" y2="17"/>
+                    <line x1="14" y1="11" x2="14" y2="17"/>
+                  </svg>
+                </button>
+              </div>
             </span>
           </div>
 
@@ -377,6 +433,10 @@ const ticketStore = useTicketStore();
 // ── Estado UI ───────────────────────────────────────────
 const searchQuery = ref("");
 const showUserMenu = ref(false);
+const showFilterMenu = ref(false);
+const showSortMenu = ref(false);
+const filterPriority = ref<string | null>(null);
+const sortBy = ref<'recent' | 'priority'>('recent');
 const previousStats = ref({
   unresolved: 100,
   critical: 5
@@ -431,13 +491,32 @@ const calculateGrowth = (current: number, previous: number) => {
 };
 
 const filteredTickets = computed(() => {
-  if (!searchQuery.value) return tickets.value;
-  const query = searchQuery.value.toLowerCase();
-  return tickets.value.filter(t => 
-    t.title.toLowerCase().includes(query) ||
-    t.description.toLowerCase().includes(query) ||
-    t.user?.name?.toLowerCase().includes(query)
-  );
+  let result = tickets.value;
+
+  // Aplicar búsqueda
+  if (searchQuery.value) {
+    const query = searchQuery.value.toLowerCase();
+    result = result.filter(t => 
+      t.title.toLowerCase().includes(query) ||
+      t.description.toLowerCase().includes(query) ||
+      t.user?.name?.toLowerCase().includes(query)
+    );
+  }
+
+  // Aplicar filtro de prioridad
+  if (filterPriority.value) {
+    result = result.filter(t => t.priority === filterPriority.value);
+  }
+
+  // Aplicar ordenamiento
+  if (sortBy.value === 'recent') {
+    result = result.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  } else if (sortBy.value === 'priority') {
+    const priorityOrder = { alta: 0, media: 1, baja: 2 };
+    result = result.sort((a, b) => (priorityOrder[a.priority as keyof typeof priorityOrder] || 3) - (priorityOrder[b.priority as keyof typeof priorityOrder] || 3));
+  }
+
+  return result;
 });
 
 // ── Chart data - Tickets CERRADOS por día ──────────────
@@ -459,7 +538,7 @@ const chartData = computed(() => {
   
   // Si no hay tickets cerrados, mostrar datos de ejemplo
   if (ticketsByDay.every(count => count === 0)) {
-    return chartLabels.map((_, i) => ({
+    return chartLabels.map(() => ({
       count: Math.floor(Math.random() * 6) + 1,
       originalCount: Math.floor(Math.random() * 6) + 1
     }));
@@ -481,15 +560,6 @@ const formatStatus = (status: string) => {
     cerrado: 'Cerrado'
   };
   return map[status] || status;
-};
-
-const formatPriority = (priority: string) => {
-  const map: Record<string, string> = {
-    baja: 'Baja',
-    media: 'Media',
-    alta: 'Alta'
-  };
-  return map[priority] || priority;
 };
 
 const formatTime = (dateString: string) => {
@@ -595,6 +665,16 @@ const cancelEdit = () => {
   editDescriptionError.value = "";
 };
 
+const deleteTicket = async (id: number) => {
+  if (!confirm("¿Está seguro de que desea eliminar este ticket?")) return;
+  
+  try {
+    await ticketStore.deleteTicket(id);
+  } catch {
+    alert("Error al eliminar el ticket");
+  }
+};
+
 const prevPage = () => {
   if (pagination.value.page > 1)
     ticketStore.fetchTickets(pagination.value.page - 1, pagination.value.limit);
@@ -605,21 +685,27 @@ const nextPage = () => {
     ticketStore.fetchTickets(pagination.value.page + 1, pagination.value.limit);
 };
 
-// Cerrar menú al hacer click fuera
-const closeUserMenu = (e: MouseEvent) => {
+// Cerrar menus al hacer click fuera
+const closeMenus = (e: MouseEvent) => {
   const target = e.target as HTMLElement;
   if (!target.closest('.user-chip') && !target.closest('.user-dropdown')) {
     showUserMenu.value = false;
+  }
+  if (!target.closest('.filter-btn') && !target.closest('.filter-menu')) {
+    showFilterMenu.value = false;
+  }
+  if (!target.closest('.filter-btn') && !target.closest('.sort-menu')) {
+    showSortMenu.value = false;
   }
 };
 
 onMounted(() => { 
   ticketStore.fetchTickets();
-  document.addEventListener('click', closeUserMenu);
+  document.addEventListener('click', closeMenus);
 });
 
 onUnmounted(() => {
-  document.removeEventListener('click', closeUserMenu);
+  document.removeEventListener('click', closeMenus);
 });
 </script>
 
@@ -953,10 +1039,72 @@ onUnmounted(() => {
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.15s ease;
+  position: relative;
 }
 .filter-btn:hover { 
   border-color: var(--accent); 
   color: var(--accent);
+}
+
+.filter-badge {
+  width: 6px;
+  height: 6px;
+  margin-left: 4px;
+  color: var(--accent);
+}
+
+.menu-container {
+  position: relative;
+  display: inline-block;
+}
+
+.filter-menu,
+.sort-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  min-width: 180px;
+  margin-top: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.menu-item:first-child {
+  border-radius: 6px 6px 0 0;
+}
+.menu-item:last-child {
+  border-radius: 0 0 6px 6px;
+}
+.menu-item:hover {
+  background: var(--bg-elevated);
+  color: var(--accent);
+}
+.menu-item.active {
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+.menu-item svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
 }
 
 /* ── TABLE ──────────────────────────────────────────── */
@@ -998,15 +1146,63 @@ onUnmounted(() => {
   gap: 8px;
 }
 
-.col-id { }
 .col-subject { min-width: 0; }
-.col-customer { }
-.col-status { }
 .col-priority { display: flex; justify-content: center; }
-.col-age { }
 .col-actions { 
   display: flex; 
   justify-content: flex-end;
+  align-items: center;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.btn-edit-ticket {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-edit-ticket:hover { 
+  border-color: var(--blue); 
+  color: var(--blue);
+  background: var(--blue-bg);
+  transform: translateY(-2px);
+}
+
+.btn-delete-ticket {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-delete-ticket:hover { 
+  border-color: var(--red); 
+  color: var(--red);
+  background: var(--red-bg);
+  transform: translateY(-2px);
+}
+.btn-delete-ticket:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .ticket-id {
@@ -1015,6 +1211,7 @@ onUnmounted(() => {
   color: var(--text-muted);
   font-weight: 500;
 }
+
 .ticket-title {
   display: block;
   font-size: 13px;
@@ -1092,25 +1289,6 @@ onUnmounted(() => {
 .age-text {
   font-size: 12px;
   color: var(--text-muted);
-}
-
-.btn-edit-ticket {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  color: var(--text-secondary);
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-.btn-edit-ticket:hover { 
-  border-color: var(--accent); 
-  color: var(--accent);
-  background: var(--accent-bg);
 }
 
 /* ── EDIT PANEL ─────────────────────────────────────── */
@@ -1343,7 +1521,6 @@ onUnmounted(() => {
 }
 
 /* Chart */
-.chart { }
 .chart-bars {
   display: flex;
   align-items: flex-end;

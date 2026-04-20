@@ -51,5 +51,15 @@ export const useTicketStore = defineStore("tickets", {
             await this.fetchTickets(this.pagination.page, this.pagination.limit);
         }
         },
+
+        async deleteTicket(id: number) {
+        this.isLoading = true;
+        try {
+            await api.delete(`/api/tickets/${id}`);
+        } finally {
+            this.isLoading = false;
+            await this.fetchTickets(this.pagination.page, this.pagination.limit);
+        }
+        },
     },
     });
