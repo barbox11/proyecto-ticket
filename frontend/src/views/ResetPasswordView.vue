@@ -41,8 +41,8 @@
 
         <!-- Requisitos de contraseña -->
         <div class="password-requirements">
-          <p :class="{ valid: newPassword.length >= 3 }">
-            ✓ Mínimo 3 caracteres
+          <p :class="{ valid: newPassword.length >= 8 }">
+            ✓ Mínimo 8 caracteres
           </p>
           <p :class="{ valid: newPassword === confirmPassword }">
             ✓ Las contraseñas coinciden
@@ -86,7 +86,7 @@ const errorMessage = ref<string>("");
 
 const isFormValid = computed((): boolean => {
   return (
-    newPassword.value.length >= 3 &&
+    newPassword.value.length >= 8 &&
     newPassword.value === confirmPassword.value
   );
 });
@@ -116,8 +116,8 @@ onMounted(async (): Promise<void> => {
 const handleResetPassword = async (): Promise<void> => {
   error.value = "";
 
-  if (newPassword.value.length < 3) {
-    error.value = "La contraseña debe tener al menos 3 caracteres";
+  if (newPassword.value.length < 8) {
+    error.value = "La contraseña debe tener al menos 8 caracteres";
     return;
   }
 

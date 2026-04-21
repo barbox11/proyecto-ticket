@@ -132,9 +132,9 @@ export const resetPasswordController = async (req: Request, res: Response) => {
             });
         }
 
-        if (newPassword.length < 3) {
+        if (newPassword.length < 8) {
             return res.status(400).json({
-                error: "La contraseña debe tener al menos 3 caracteres",
+                error: "La contraseña debe tener al menos 8 caracteres",
             });
         }
 

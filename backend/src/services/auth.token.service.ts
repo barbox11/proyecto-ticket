@@ -1,4 +1,5 @@
 import crypto from "crypto";
+import bcrypt from "bcrypt";
 import { prisma } from "../config/prisma";
 import logger from "../config/logger";
 
@@ -80,14 +81,14 @@ export const createPasswordResetToken = async (userId: number, email: string) =>
         throw new Error("Token ya fue usado");
         }
 
-        // En la práctica, encriptarías la contraseña aquí
-        // const hashedPassword = await bcrypt.hash(newPassword, 10);
+        // Encriptar la contraseña con bcrypt (10 rounds)
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
 
         // Actualizar contraseña y marcar token como usado
         await Promise.all([
         prisma.user.update({
             where: { id: resetToken.userId },
-            data: { password: newPassword }, // En producción, encriptaría aquí
+            data: { password: hashedPassword },
         }),
         prisma.passwordResetToken.update({
             where: { token },
