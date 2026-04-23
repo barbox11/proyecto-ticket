@@ -1,9 +1,9 @@
 <template>
   <div class="recover-container">
     <div class="recover-card">
-      <!-- Icono circular -->
-      <div class="icon-circle">
-        <span>🔐</span>
+      <!-- Logo -->
+      <div class="logo-container">
+        <img :src="logo" alt="Logo" class="card-logo" />
       </div>
 
       <h1>Recuperar Acceso</h1>
@@ -54,6 +54,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { api } from "../api/api";
+import logo from "../assets/logo.png";
 
 const router = useRouter();
 
@@ -117,17 +118,31 @@ const handleForgotPassword = async () => {
   text-align: center;
 }
 
-.icon-circle {
-  width: 80px;
-  height: 80px;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+.logo-container {
+  width: auto;
+  height: auto;
+  background: transparent;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 30px;
-  font-size: 40px;
-  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+  margin: 0 auto 50px;
+  box-shadow: none;
+  padding: 0;
+  animation: none;
+  border: none;
+}
+
+.card-logo {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+  transition: transform 0.3s ease;
+}
+
+.logo-container:hover .card-logo {
+  transform: scale(1.05);
 }
 
 h1 {

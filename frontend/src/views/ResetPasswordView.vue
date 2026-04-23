@@ -1,7 +1,11 @@
 <template>
   <div class="reset-password-container">
     <div class="reset-password-card">
-      <h1>🔐 Cambiar Contraseña</h1>
+      <!-- Logo -->
+      <div class="logo-container">
+        <img :src="logo" alt="Logo" class="card-logo" />
+      </div>
+      <h1>Cambiar Contraseña</h1>
 
       <!-- Estado de carga -->
       <div v-if="validating" class="loading">
@@ -71,6 +75,7 @@
 import { ref, computed, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { api } from "../api/api";
+import logo from "../assets/logo.png";
 
 const router = useRouter();
 const route = useRoute();
@@ -163,6 +168,33 @@ const handleResetPassword = async (): Promise<void> => {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   width: 100%;
   max-width: 400px;
+}
+
+.logo-container {
+  width: auto;
+  height: auto;
+  background: transparent;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 50px;
+  box-shadow: none;
+  padding: 0;
+  animation: none;
+  border: none;
+}
+
+.card-logo {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+  transition: transform 0.3s ease;
+}
+
+.logo-container:hover .card-logo {
+  transform: scale(1.05);
 }
 
 h1 {

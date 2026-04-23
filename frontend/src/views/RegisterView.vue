@@ -14,7 +14,7 @@
         <!-- Panel Izquierdo -->
         <div class="register-left">
             <div class="register-logo">
-            <div class="logo-icon">A</div>
+            <img :src="logo" alt="Logo" class="logo-img" />
             <span class="logo-text">Archon Systems</span>
             </div>
 
@@ -236,6 +236,7 @@
     import { ref } from "vue";
     import { api } from "../api/api";
     import { useRouter } from "vue-router";
+    import logo from "../assets/logo.png";
 
     // Variables reactivas
     const name = ref("");
@@ -513,10 +514,22 @@
     font-size: 1.25rem;
     }
 
+    .logo-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
+    transition: transform 0.3s ease;
+    }
+
+    .register-logo:hover .logo-img {
+    transform: scale(1.12) rotate(8deg);
+    }
+
     .logo-text {
     color: var(--primary);
-    font-size: 1.25rem;
-    font-weight: 600;
+    font-size: 1.8rem;
+    font-weight: 700;
     letter-spacing: -0.5px;
     }
 

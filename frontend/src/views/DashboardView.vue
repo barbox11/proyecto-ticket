@@ -3,6 +3,9 @@
 
     <!-- ── HEADER ─────────────────────────────────────── -->
     <header class="header">
+      <div class="header-left">
+        <img :src="logo" alt="Logo" class="header-logo" />
+      </div>
       <div class="search-wrap">
         <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="11" cy="11" r="8"/>
@@ -11,20 +14,6 @@
         <input class="search-input" v-model="searchQuery" type="text" placeholder="Buscar tickets, clientes o archivos..." />
       </div>
       <div class="header-right">
-        <button class="icon-btn" title="Notificaciones">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-          </svg>
-          <span v-if="urgentTickets.length > 0" class="badge-notification">{{ urgentTickets.length }}</span>
-        </button>
-        <button class="icon-btn" title="Ayuda">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-            <line x1="12" y1="17" x2="12.01" y2="17"/>
-          </svg>
-        </button>
         <button class="btn-logout" @click="logout" title="Cerrar sesión">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
             <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
@@ -425,6 +414,7 @@ import { ref, computed, onMounted, onUnmounted } from "vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "../stores/auth.store";
 import { useTicketStore } from "../stores/ticket.store";
+import logo from "../assets/logo.png";
 
 const router = useRouter();
 const auth = useAuthStore();
@@ -751,6 +741,37 @@ onUnmounted(() => {
   padding: 16px 24px;
   border-bottom: 1px solid var(--border);
   background: var(--bg-darker);
+  gap: 20px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.header-logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 8px rgba(16, 185, 129, 0.3));
+  transition: transform 0.3s ease;
+}
+
+.header-logo:hover {
+  transform: scale(1.15) rotate(-3deg);
+}
+
+.header-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+  background: linear-gradient(135deg, var(--primary), #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .search-wrap {
@@ -761,7 +782,8 @@ onUnmounted(() => {
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 8px 12px;
-  width: 420px;
+  flex: 1;
+  max-width: 420px;
   transition: all 0.2s ease;
 }
 .search-wrap:focus-within { 

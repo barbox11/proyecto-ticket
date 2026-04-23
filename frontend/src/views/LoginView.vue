@@ -15,10 +15,7 @@
       <!-- Logo y título -->
       <div class="login-header">
         <div class="login-logo">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="18" height="18" rx="3" />
-            <path d="M9 9l6 6M15 9l-6 6" />
-          </svg>
+          <img :src="logo" alt="Logo" class="logo-img" />
         </div>
         <h1 class="login-title">Bienvenido de nuevo</h1>
         <p class="login-subtitle">Inicia sesión para gestionar tus tickets</p>
@@ -141,6 +138,7 @@
 import { ref } from "vue";
 import { useAuthStore } from "../stores/auth.store";
 import { useRouter } from "vue-router";
+import logo from "../assets/logo.png";
 
 const email = ref("");
 const password = ref("");
@@ -355,13 +353,28 @@ const goForgotPassword = () => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
-  border-radius: var(--radius-md);
-  background: var(--primary-gradient);
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+  border: 4px solid var(--primary);
   color: white;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   animation: iconPulse 3s ease-in-out infinite;
+  box-shadow: 0 0 50px rgba(16, 185, 129, 0.5), inset 0 0 50px rgba(16, 185, 129, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-logo:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 80px rgba(16, 185, 129, 0.7), inset 0 0 50px rgba(16, 185, 129, 0.2);
+}
+
+.logo-img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
 .login-title {
