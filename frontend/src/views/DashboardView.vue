@@ -414,7 +414,7 @@ import { ref, computed, onMounted, onUnmounted } from "vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "../stores/auth.store";
 import { useTicketStore } from "../stores/ticket.store";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo3.svg";
 
 const router = useRouter();
 const auth = useAuthStore();

@@ -138,7 +138,7 @@
 import { ref } from "vue";
 import { useAuthStore } from "../stores/auth.store";
 import { useRouter } from "vue-router";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo3.svg";
 
 const email = ref("");
 const password = ref("");
@@ -353,16 +353,17 @@ const goForgotPassword = () => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 200px;
-  height: 200px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
-  border: 4px solid var(--primary);
+  border: 3px solid var(--primary);
   color: white;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
   animation: iconPulse 3s ease-in-out infinite;
   box-shadow: 0 0 50px rgba(16, 185, 129, 0.5), inset 0 0 50px rgba(16, 185, 129, 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-shrink: 0;
 }
 
 .login-logo:hover {
@@ -371,9 +372,10 @@ const goForgotPassword = () => {
 }
 
 .logo-img {
-  width: 80%;
-  height: 80%;
+  width: 75%;
+  height: 75%;
   object-fit: contain;
+  aspect-ratio: 1;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
@@ -666,6 +668,13 @@ const goForgotPassword = () => {
 
   .login-card {
     padding: 32px 24px;
+  }
+
+  .login-logo {
+    width: 100px;
+    height: 100px;
+    border-width: 2px;
+    margin-bottom: 24px;
   }
 
   .login-title {

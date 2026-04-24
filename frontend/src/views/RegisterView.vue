@@ -236,7 +236,7 @@
     import { ref } from "vue";
     import { api } from "../api/api";
     import { useRouter } from "vue-router";
-    import logo from "../assets/logo.png";
+    import logo from "../assets/logo3.svg";
 
     // Variables reactivas
     const name = ref("");
@@ -515,9 +515,10 @@
     }
 
     .logo-img {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     object-fit: contain;
+    aspect-ratio: 1;
     filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
     transition: transform 0.3s ease;
     }
@@ -955,6 +956,15 @@
 
     .register-right {
         padding: 2rem 1.5rem;
+    }
+
+    .logo-img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .logo-text {
+        font-size: 1.5rem;
     }
 
     .sso-buttons {

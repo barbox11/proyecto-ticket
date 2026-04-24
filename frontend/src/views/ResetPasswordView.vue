@@ -75,7 +75,7 @@
 import { ref, computed, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { api } from "../api/api";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo3.svg";
 
 const router = useRouter();
 const route = useRoute();

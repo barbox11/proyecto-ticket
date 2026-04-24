@@ -54,7 +54,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { api } from "../api/api";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo3.svg";
 
 const router = useRouter();
 
